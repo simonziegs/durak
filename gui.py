@@ -93,14 +93,16 @@ class DurakGUI:
             messagebox.showwarning("Invalid Action", "Select at least one card!")
             return
         actions = self.game.get_legal_actions()
-        action = self.selected_cards[:]  # Keep as list
+        action = sorted(self.selected_cards[:])  # Sort attempted action
+        # Convert legal actions to sorted lists for comparison
+        sorted_actions = [sorted(a) if isinstance(a, list) else a for a in actions]
         print(f"Debug - Hand: {self.game.hands[0]}, Legal actions: {actions}, Attempted: {action}")
-        if action not in actions:
+        if action not in sorted_actions:
             messagebox.showwarning("Invalid Action", "Illegal attack!")
             self.selected_cards = []
             self.update_gui()
             return
-        self.game.apply_action(action)
+        self.game.apply_action(self.selected_cards[:])  # Apply original order
         self.selected_cards = []
         self.update_gui()
         if self.game.defender == 1 and not self.game.is_terminal():
