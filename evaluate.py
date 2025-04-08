@@ -97,5 +97,5 @@ def evaluate_bots(strategies, num_games=1000):
     return results
 
 if __name__ == "__main__":
-    strategies = ["random", "aggressive", "defensive"]
-    evaluate_bots(strategies, num_games=1000)
+    strategies = ["random", "aggressive", "defensive", "trump_lover"]
+    evaluate_bots(strategies, num_games=100)
